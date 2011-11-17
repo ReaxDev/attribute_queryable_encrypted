@@ -2,6 +2,7 @@ module AttributeQueryableEncrypted
   module CoreExt
     module StretchDigest
       def stretch_digest(options={})
+        options = options.dup
         options[:digest] ||= Digest::SHA2
         options[:stretches] ||= 1
         
