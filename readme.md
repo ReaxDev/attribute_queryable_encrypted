@@ -27,16 +27,16 @@ Example:
 
 ActiveRecord:
 -------------
-ActiveRecord users gain a query method for their prefix digest column:
+ActiveRecord users gain a `find_all_by_[prefix]_[attribute]` query method for their prefix digest column:
 
       HiddenValue.find_all_by_prefix_data("This is ")
       # => [#<HiddenValue id: 1, encrypted_data: "MWE2ODg0ZTVmNTA2M2I3MTZmMWQxZGI3NzA0MjgyMzRj...", prefix_data_digest: "MTgyODBlMWFkNGZiMjAyZTc5Y2FiYTcxODZhYTg1OWM3OGNhOWI...">, #<HiddenValue id: 2, encrypted_data: "WQxZGI3NzANTA2M2I3MTZmMj0MjgyMzRMWE2ODg0ZTVm...", prefix_data_digest: "MTgyODBlMWFkNGZiMjAyZTc5Y2FiYTcxODZhYTg1OWM3OGNhOWI...">]
 
 The returned records - a subset of the full table - can then be iterated over to find an exact match.
 
-A convenience method is provided to do this for you - note that it requires an attribute getter method (but not necessarily a database column) that provides a cleartext match for your query argument:
+A convenience method is provided to do this for you - `find_by_[attribute]`. Note that it requires an attribute getter method (but not necessarily a database column) that provides a cleartext match for your query argument:
 
-      HiddenValue.find_by_prefix_data("This is a string")
+      HiddenValue.find_by_data("This is a string")
       # => #<HiddenValue id: 1, encrypted_data: "MWE2ODg0ZTVmNTA2M2I3MTZmMWQxZGI3NzA0MjgyMzRj...", prefix_data_digest: "MTgyODBlMWFkNGZiMjAyZTc5Y2FiYTcxODZhYTg1OWM3OGNhOWI...">
 
 You'll need to create an appropriately-named prefix digest column on your own.
