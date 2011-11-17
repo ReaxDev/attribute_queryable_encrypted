@@ -67,7 +67,8 @@ module AttributeQueryableEncrypted
       
       def prefix_encrypt(value, options)
         prefix_encrypted_value = value.prefix(options[:length]).stretch_digest(options)
-        prefix_encrypted_value = [prefix_encrypted_value].pack("m*") if options[:encode]
+        # prefix_encrypted_value = [prefix_encrypted_value].pack("m*") if options[:encode]
+        prefix_encrypted_value = Base64.strict_encode64(prefix_encrypted_value) if options[:encode]
         prefix_encrypted_value
       end
     end
