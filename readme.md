@@ -60,10 +60,10 @@ Requirements:
 
 Warnings
 --------
-* This technique is not without shortcomings, notably that the prefix digest is subject to a precomputed attack. 
+* This technique is not without shortcomings, notably that the entire prefix digest is subject to a precomputed attack. 
 * You should consider using secret values for :stretches and :key, and setting the :length option to a level that obscures an appropriate amount of your data without potentially giving away too much.
 * Increasing :stretches incurs a small performance penalty.
-* Decreasing :length can return more records in the initial matched set, potentially decreasing performance.
+* Decreasing :length can return more records in the initial matched set, potentially decreasing performance. Increasing :length makes more of the data subject to a precomputed attack.
 
 Copyright
 ---------
