@@ -23,7 +23,7 @@ module AttributeQueryableEncrypted
 
             find_by_method = proc do |original_value| 
               send("find_all_by_#{[options[:prefix], attribute].join('_')}", original_value.prefix(options[:length])).detect do |result|
-                result[attribute].match original_value
+                result.send(attribute).match original_value
               end
             end
             
