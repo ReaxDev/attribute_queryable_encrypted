@@ -11,7 +11,7 @@ module AttributeQueryableEncrypted
       # "This is a string".prefix_length("75%") => 12
       # 
       def prefix_length(requested_length)
-        requested_length.is_a?(Numeric) ? length.lower(requested_length) : (length/(100/requested_length.match(/^([0-9.]+)%$/)[0].to_f)).ceil
+        requested_length.is_a?(Numeric) ? length.lower(requested_length) : (length/(100/requested_length.match(/^([0-9.]+)%?$/)[0].to_f)).ceil
       end
 
       def prefix(requested_length)
