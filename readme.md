@@ -54,7 +54,7 @@ Options:
 --------
 * :length     - an integer value length, or percentage expressed as a string ("72%"). Default is "50%".
 * :prefix     - prefix name for the storage accessor. Default is "prefix"
-* :suffix     - suffix name for the storage accessor. Defuault is "digest"
+* :suffix     - suffix name for the storage accessor. Default is "digest"
 * :encode     - Base64 encode the digest hash, suitable for database persistence. Default is false.
 * :stretches  - an integer number of iterations through the digest algorithm. More will reduce the ease of a precomputed attack. Default is 3.
 * :key        - an optional key to salt the digest algorithm. Default is nil.
