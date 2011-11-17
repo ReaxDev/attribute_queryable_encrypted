@@ -41,12 +41,20 @@ A convenience method is provided to do this for you - note that it requires an a
 
 You'll need to create an appropriately-named prefix digest column on your own.
 
+AttributeQueryableEncrypted is automatically included into ActiveRecord::Base when the gem is installed. To use, just specify the columns you want:
+
+      class HiddenValue < ActiveRecord::Base
+        attr_encrypted :data, :key => { |record| SiteKey + record.salt }
+        attribute_queryable_encrypted :data, :length => "35%", :suffix => "queryable"
+      end
+      
+Your :data accessor (provided here by attr_encrypted) should exist prior to defining the queryable accessor.
 
 Options:
 --------
 * :length     - an integer value length, or percentage expressed as a string ("72%"). Default is "50%".
 * :prefix     - prefix name for the storage accessor. Default is "prefix"
-* :suffix     - suffix name for the storage accessor. Defuault is "suffix"
+* :suffix     - suffix name for the storage accessor. Defuault is "digest"
 * :encode     - Base64 encode the digest hash, suitable for database persistence. Default is false.
 * :stretches  - an integer number of iterations through the digest algorithm. More will reduce the ease of a precomputed attack. Default is 3.
 * :key        - an optional key to salt the digest algorithm. Default is nil.
