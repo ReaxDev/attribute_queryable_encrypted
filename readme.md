@@ -2,7 +2,7 @@ AttributeQueryableEncrypted
 ===========================
 Assigns a digest-hashed value to an attribute writer using a portion of the value assigned to each attribute's normal writer. The digest-hashed prefix can then be used to identify other objects with the same prefix without revealing the underlying value.
 
-AttributeQueryableEncrypted was inspried by shuber's excellent [attr_encrypted](https://github.com/shuber/attr_encrypted) gem, and aims for compatibility. It attempts to addresses a shortcoming of encryption, where encrypted columns are queryable when unsalted, but attackable using a precomputed "rainbow table".
+AttributeQueryableEncrypted was inspried by shuber's excellent [attr_encrypted](https://github.com/shuber/attr_encrypted) gem, and aims for compatibility. It attempts to addresses a shortcoming of unsalted encryption, where encrypted columns are queryable, but attackable using a precomputed "rainbow table". By exposing only a portion of the unsalted encrypted data to precomputed attacks, AttributeQueryableEncrypted reduces the need for a full-table scan on encrypted data.
 
 Selecting multiple candidates with matching prefix digests and subsequently decrypting the full salted/encrypted data field to find a exact match will reduce the need for a full table scan. You should use attr_encrypted, or your own crypto logic, to handle encrypting and decrypting the appropriate full data field.
 
@@ -50,6 +50,7 @@ Options:
 * :encode     - Base64 encode the digest hash, suitable for database persistence. Default is false.
 * :stretches  - an integer number of iterations through the digest algorithm. More will reduce the ease of a precomputed attack. Default is 3.
 * :key        - an optional key to salt the digest algorithm. Default is nil.
+* :digest     - the Digest class to use. Must respond to #update. Default is Digest::SHA2.
 
 If you choose to use :stretches and/or :key, you should keep their values secret.
 
