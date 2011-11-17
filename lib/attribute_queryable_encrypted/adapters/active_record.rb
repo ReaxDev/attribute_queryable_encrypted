@@ -27,14 +27,10 @@ module AttributeQueryableEncrypted
               end
             end
             
-            singleton = class << self
-              self
-            end
-            
             alias_method "original_find_by_#{attribute}", "find_by_#{attribute}" if respond_to?(attribute)
             
-            singleton.send(:define_method, "find_all_by_#{[options[:prefix], attribute].join('_')}", find_all_by_method)            
-            singleton.send(:define_method, "find_by_#{attribute}", find_by_method)
+            define_singleton_method "find_all_by_#{[options[:prefix], attribute].join('_')}", find_all_by_method
+            define_singleton_method "find_by_#{attribute}", find_by_method
 
           end
         end

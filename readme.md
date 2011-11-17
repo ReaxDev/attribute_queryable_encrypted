@@ -55,6 +55,7 @@ If you choose to use :stretches and/or :key, you should keep their values secret
 
 Requirements:
 -------------
+* Ruby >= 1.9
 * ActiveSupport >= 3.0
 * ActiveRecord >= 3.0 for ActiveRecord usage
 
