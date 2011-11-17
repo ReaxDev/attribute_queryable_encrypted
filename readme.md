@@ -9,10 +9,13 @@ Selecting multiple candidates with matching prefix digests and subsequently decr
 Example:
 --------
     class HiddenValue                                                              
-      include AttributeQueryableEncrypted::PrefixAttributes                        
-      attr_writer :data                                                            
-      attr_accessor :prefix_data_digest                                            
-      attribute_queryable_encrypted :data                                          
+      include AttributeQueryableEncrypted::PrefixAttributes                                                        
+      attr_accessor :prefix_data_digest
+      attribute_queryable_encrypted :data
+      
+      def data=(something)
+        ...something fancy that obscures the data...
+      end
     end                                                                            
                                                                                  
     hider = HiddenValue.new                                                        
@@ -27,7 +30,7 @@ ActiveRecord:
 ActiveRecord users gain a query method for their prefix digest column:
 
       HiddenValue.find_all_by_prefix_data("This is ")
-      # => [#<HiddenValue id: 1, data: "This is a string", prefix_data_digest: "MTgyODBlMWFkNGZiMjAyZTc5Y2FiYTcxODZhYTg1OWM3OGNhOWI...">, #<HiddenValue id: 2, data: "This is another string", prefix_data_digest: "MTgyODBlMWFkNGZiMjAyZTc5Y2FiYTcxODZhYTg1OWM3OGNhOWI...">]
+      # => [#<HiddenValue id: 1, encrypted_data: "MWE2ODg0ZTVmNTA2M2I3MTZmMWQxZGI3NzA0MjgyMzRj...", prefix_data_digest: "MTgyODBlMWFkNGZiMjAyZTc5Y2FiYTcxODZhYTg1OWM3OGNhOWI...">, #<HiddenValue id: 2, encrypted_data: "WQxZGI3NzANTA2M2I3MTZmMj0MjgyMzRMWE2ODg0ZTVm...", prefix_data_digest: "MTgyODBlMWFkNGZiMjAyZTc5Y2FiYTcxODZhYTg1OWM3OGNhOWI...">]
 
 The returned records - a subset of the full table - can then be iterated over to find an exact match.
 
@@ -52,8 +55,8 @@ If you choose to use :stretches and/or :key, you should keep their values secret
 
 Requirements:
 -------------
-ActiveSupport >= 3.0
-ActiveRecord >= 3.0 for ActiveRecord usage
+* ActiveSupport >= 3.0
+* ActiveRecord >= 3.0 for ActiveRecord usage
 
 Warnings
 --------
