@@ -6,7 +6,7 @@ ActiveRecord::Base.establish_connection(:adapter => "sqlite3",
                                         :database => File.dirname(__FILE__) + "/db/attribute_queryable_encrypted.sqlite3")
 
 ActiveRecord::Base.logger = Logger.new(STDOUT)
-ActiveRecord::Base.logger.level = 3
+ActiveRecord::Base.logger.level = 1
 
 load File.dirname(__FILE__) + '/db/schema.rb'
 
