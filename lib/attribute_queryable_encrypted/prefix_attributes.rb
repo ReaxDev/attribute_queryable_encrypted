@@ -57,10 +57,10 @@ module AttributeQueryableEncrypted
           class_eval do
             alias_method "unprefixed_#{attribute}=".to_sym, "#{attribute}=".to_sym
 
-            define_method "#{attribute}=", do |*args, &blk|
+            define_method "#{attribute}=", lambda {|*args, &blk|
               send("#{[options[:prefix], attribute, options[:suffix]].join('_')}=".to_sym, prefix_encrypt(args[0], options))
               send("unprefixed_#{attribute}=".to_sym, *args, &blk)
-            end
+            }
           end
         end
       end
