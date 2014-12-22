@@ -14,6 +14,10 @@ module AttributeQueryableEncrypted
       }
     end
 
+    def prefix_encrypt(value, options)
+      self.class.prefix_encrypt(value, options)
+    end
+
     module ClassMethods
       
       # Assigns a digest-hashed value to an attribute writer using a portion of the 
@@ -70,12 +74,6 @@ module AttributeQueryableEncrypted
         # prefix_encrypted_value = [prefix_encrypted_value].pack("m*") if options[:encode]
         prefix_encrypted_value = Base64.strict_encode64(prefix_encrypted_value) if options[:encode]
         prefix_encrypted_value
-      end
-    end
-    
-    module InstanceMethods
-      def prefix_encrypt(value, options)
-        self.class.prefix_encrypt(value, options)
       end
     end
   end
